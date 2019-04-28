@@ -103,4 +103,4 @@ Plug 'ajh17/VimCompletesMe'
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
-
+set ofu=syntaxcomplete#Complete

@@ -33,3 +33,5 @@ build/
 .gtm/
 .metadata/
 jdt.ls-java-project/
+files/
+plugged/

@@ -1,0 +1,11 @@
+Dependence List
+===============
+
+1. rust develop-env, get started from: https://www.rust-lang.org/
+2. ripgrep/rust
+3. fd/rust
+4. fzf/go
+5. ctags
+6. global
+
+TBD...

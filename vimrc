@@ -99,8 +99,18 @@ call plug#begin('$HOME/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ajh17/VimCompletesMe'
+Plug 'jsfaint/gen_tags.vim'
 
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
 set ofu=syntaxcomplete#Complete
+
+let g:gen_tags#gtags_default_map=1
+
+" Mapped as Emacs.
+inoremap <C-A> <Home>
+inoremap <C-B> <Left>
+inoremap <C-E> <End>
+inoremap <C-F> <Right>
+

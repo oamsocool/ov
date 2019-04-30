@@ -30,6 +30,8 @@ set hidden                 " Switch between buffers without having to save first
 set laststatus  =2         " Always show statusline.
 set display     =lastline  " Show as much as possible of the last line.
 
+"set autochdir              " Auto change workspace, maybe 'lcd' is better.
+
 set showmode               " Show current mode in command-line.
 set showcmd                " Show already typed keys when more are expected.
 
@@ -47,6 +49,7 @@ set synmaxcol   =200       " Only highlight the first 200 columns.
 
 set completeopt =noselect,menu " Firstly, don't show the menu.
 
+set noshowmode             " 'lightline' plugin is more useful.
 set list                   " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
@@ -60,6 +63,9 @@ if &shell =~# 'fish$'
   set shell=/bin/bash
 endif
 
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " create directory if needed
 if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')        | call mkdir($HOME.'/.vim/files') | endif
@@ -84,7 +90,6 @@ set viminfo     ='100,n$HOME/.vim/files/info/viminfo
 " The official website: http://ctags.sourceforge.net/
 let Tlist_Ctags_Cmd = '/usr/local/ctags-self/bin/ctags'
 
-
 " Note that --sync flag is used to block the execution until the installer finishes.
 " (If you're behind an HTTP proxy, you may need to add --insecure option to the curl command.
 " In that case, you also need to set $GIT_SSL_NO_VERIFY to true.)
@@ -94,23 +99,85 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
+" === [Special Plugged Configuration] <BEG>
+"
 call plug#begin('$HOME/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'https://github.com/Alok/notational-fzf-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'itchyny/lightline.vim'
 Plug 'ajh17/VimCompletesMe'
-Plug 'jsfaint/gen_tags.vim'
+
+" Plug 'terryma/vim-multiple-cursors'
+" Plug 'maralla/completor.vim'
+" Plug 'jsfaint/gen_tags.vim'
 
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
 set ofu=syntaxcomplete#Complete
 
-let g:gen_tags#gtags_default_map=1
+if !isdirectory($HOME.'/note') && exists('*mkdir') | call mkdir($HOME.'/note') | endif
+if !isdirectory($HOME.'/note/wiki') && exists('*mkdir') | call mkdir($HOME.'/note/wiki') | endif
+if !isdirectory($HOME.'/note/code') && exists('*mkdir') | call mkdir($HOME.'/note/code') | endif
+let g:nv_search_paths = ['$HOME/note/wiki', '$HOME/note/code', 'docs.md' , './notes.md', '$HOME/.vim']
+
+" let g:gen_tags#gtags_default_map=1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" spec
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+" === [Special Plugged Configuration] <END>
+
 
 " Mapped as Emacs.
 inoremap <C-A> <Home>
 inoremap <C-B> <Left>
 inoremap <C-E> <End>
 inoremap <C-F> <Right>
+
+" Rename file.
+command! -nargs=1 Rename let tpname = expand('%:t') | saveas <args> | edit <args> | call delete(expand(tpname))
+
+" Jump to your vimrc file in anytime.
+command! -nargs=0 Jv edit $MYVIMRC
+
+" Key-Board Maps
+nnoremap <silent> <leader>v :NV<CR>
+nnoremap <silent> <leader>t :Tlist<CR>
+nnoremap <silent> <c-l>     :nohl<CR>
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" after fzf.vim
+nnoremap <silent> <leader><space> :Commands<CR>
+nnoremap <silent> <leader>a       :Rg<CR>
+nnoremap <silent> <leader>s       :BLines<CR>
+nnoremap <silent> <leader>f       :Files<CR>
+nnoremap <silent> <leader>g       :GFiles<CR>
+
 

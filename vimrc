@@ -122,9 +122,7 @@ let g:deoplete#enable_at_startup = 1
 set ofu=syntaxcomplete#Complete
 
 if !isdirectory($HOME.'/note') && exists('*mkdir') | call mkdir($HOME.'/note') | endif
-if !isdirectory($HOME.'/note/wiki') && exists('*mkdir') | call mkdir($HOME.'/note/wiki') | endif
-if !isdirectory($HOME.'/note/code') && exists('*mkdir') | call mkdir($HOME.'/note/code') | endif
-let g:nv_search_paths = ['$HOME/note/wiki', '$HOME/note/code', 'docs.md' , './notes.md']
+let g:nv_search_paths = ['$HOME/note', 'docs.md' , './notes.md']
 
 " let g:gen_tags#gtags_default_map=1
 

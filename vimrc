@@ -124,7 +124,7 @@ set ofu=syntaxcomplete#Complete
 if !isdirectory($HOME.'/note') && exists('*mkdir') | call mkdir($HOME.'/note') | endif
 if !isdirectory($HOME.'/note/wiki') && exists('*mkdir') | call mkdir($HOME.'/note/wiki') | endif
 if !isdirectory($HOME.'/note/code') && exists('*mkdir') | call mkdir($HOME.'/note/code') | endif
-let g:nv_search_paths = ['$HOME/note/wiki', '$HOME/note/code', 'docs.md' , './notes.md', '$HOME/.vim']
+let g:nv_search_paths = ['$HOME/note/wiki', '$HOME/note/code', 'docs.md' , './notes.md']
 
 " let g:gen_tags#gtags_default_map=1
 
@@ -179,5 +179,6 @@ nnoremap <silent> <leader>a       :Rg<CR>
 nnoremap <silent> <leader>s       :BLines<CR>
 nnoremap <silent> <leader>f       :Files<CR>
 nnoremap <silent> <leader>g       :GFiles<CR>
+nnoremap <silent> <leader>d       :Buffers<CR>
 
 

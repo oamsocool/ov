@@ -140,6 +140,10 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+let g:nv_window_direction = 'up'
+let g:nv_ignore_pattern = ['README.*', '.git', 'LICENSE', '*.sh']
+
+
 " === [Special Plugged Configuration] <END>
 
 

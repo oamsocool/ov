@@ -121,8 +121,8 @@ call plug#end()
 let g:deoplete#enable_at_startup = 1
 set ofu=syntaxcomplete#Complete
 
-if !isdirectory($HOME.'/note') && exists('*mkdir') | call mkdir($HOME.'/note') | endif
-let g:nv_search_paths = ['$HOME/note', 'docs.md' , './notes.md']
+if !isdirectory($HOME.'/MzNote') && exists('*mkdir') | call mkdir($HOME.'/note') | endif
+let g:nv_search_paths = ['$HOME/MzNote']
 
 " let g:gen_tags#gtags_default_map=1
 

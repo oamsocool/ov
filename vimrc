@@ -163,6 +163,9 @@ command! -nargs=0 Jv edit $MYVIMRC
 nnoremap <silent> <leader>v :NV<CR>
 nnoremap <silent> <leader>t :Tlist<CR>
 nnoremap <silent> <c-l>     :nohl<CR>
+nnoremap <silent> <c-\>     <c-^>
+
+command W w !sudo tee % > /dev/null
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
